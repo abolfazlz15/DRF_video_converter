@@ -30,6 +30,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+LOCAL_APPS = [
+    'video.apps.VideoConfig',
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'django_cleanup.apps.CleanupConfig',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
