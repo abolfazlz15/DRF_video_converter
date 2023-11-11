@@ -1,5 +1,7 @@
+from datetime import timedelta
 import tempfile
 from io import BytesIO
+from django.utils import timezone
 
 from celery import shared_task
 from django.core.files.base import ContentFile
@@ -25,3 +27,10 @@ def convert_video_task(video_id):
     video_instance.save()
 
     return video_instance.id
+
+
+@shared_task
+def delete_expire_video_task():
+    one_day_ago = timezone.now() - timedelta(minutes=2)
+    old_objects = VideoModel.objects.filter(created_at__lt=one_day_ago)
+    old_objects.delete()
