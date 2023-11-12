@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate, password_validation
+from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from accounts.models import User
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -24,3 +26,21 @@ class UserLoginSerializer(serializers.Serializer):
             'access': str(refresh.access_token),
 
         })
+    
+    
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'fullname', 'password')
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
+
+    def validate_password(self, value):
+        try:
+            password_validation.validate_password(value, self.instance)
+        except serializers.ValidationError as error:
+            self.add_error('password', error)
+        return value
+
+
