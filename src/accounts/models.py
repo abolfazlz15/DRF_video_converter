@@ -10,7 +10,7 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    fullname = models.EmailField(
+    fullname = models.CharField(
         verbose_name='full name',
         max_length=100,
     )
