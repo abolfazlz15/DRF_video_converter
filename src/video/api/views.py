@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from video.api import serializers
 from video.models import VideoModel
+from video.permissions import IsAuthor
 from video.tasks import convert_video_task
 
 
@@ -22,7 +23,10 @@ class VideoUploadConvertView(APIView):
 
 
 class UserVideoListView(generics.ListAPIView):
+    permission_classes = (IsAuthor,)
     serializer_class = serializers.UserVideoListSerializer
 
     def get_queryset(self):
-        return VideoModel.objects.filter(user__id=self.kwargs['id'])
+        vidoo_instance =  VideoModel.objects.filter(user__id=self.kwargs['id'])
+        self.check_object_permissions(self.request, vidoo_instance.first())
+        return vidoo_instance
