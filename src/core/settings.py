@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 LOCAL_APPS = [
     'video.apps.VideoConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 THIRD_PARTY_APPS = [

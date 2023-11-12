@@ -31,6 +31,6 @@ def convert_video_task(video_id):
 
 @shared_task
 def delete_expire_video_task():
-    one_day_ago = timezone.now() - timedelta(minutes=2)
+    one_day_ago = timezone.now() - timedelta(hours=12)
     old_objects = VideoModel.objects.filter(created_at__lt=one_day_ago)
     old_objects.delete()
