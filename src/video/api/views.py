@@ -19,3 +19,4 @@ class VideoUploadConvertView(APIView):
         converted_file_url = request.build_absolute_uri(video_instance.convert_video.url)
 
         return Response({'converted_file_url': converted_file_url}, status=status.HTTP_201_CREATED)
+

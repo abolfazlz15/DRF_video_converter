@@ -149,3 +149,5 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=15),
     },
 }
+
+AUTH_USER_MODEL = "accounts.User"
