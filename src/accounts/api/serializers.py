@@ -1,4 +1,3 @@
-from rest_framework import serializers
 from django.contrib.auth import authenticate, password_validation
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -44,3 +43,14 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return value
 
 
+class VerifyOTPCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=4)
+
+    def save(self, validated_data):
+        refresh = RefreshToken.for_user(validated_data)
+        return ({
+            'user_id': validated_data.id,
+            'success': True,
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })

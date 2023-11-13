@@ -10,5 +10,6 @@ urlpatterns = [
     
     # login URL
     path('login/', views.UserLoginView.as_view(), name='login'),
-    path('regiser/', views.CreateUserView.as_view(), name='user_register'),
+    path('register/', views.CreateUserView.as_view(), name='user_register'),
+    path('vrify-otp/', views.VerifyOTPCodeView.as_view(), name='vrify_OTP_code'),
 ]
