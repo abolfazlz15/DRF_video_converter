@@ -20,6 +20,7 @@ class UserLoginSerializer(serializers.Serializer):
         refresh = RefreshToken.for_user(validated_data)
         return ({
             'username': validated_data.fullname,
+            'success': True,
             'user_id': validated_data.id,
             'refresh': str(refresh),
             'access': str(refresh.access_token),
